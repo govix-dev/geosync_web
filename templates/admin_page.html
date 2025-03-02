@@ -34,23 +34,28 @@
         <form onsubmit="event.preventDefault();send_data();">
         <div class="mb-3" style="margin: top 10px;;">
             <label for="formFile" class="form-label">Admin-Image upload</label>
-            <input class="form-control shadow-none" type="file" id="img">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Link </span>
+            <input type="text" class="form-control shadow-none" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"  id="img_link" placeholder="Link" required>
           </div>
           <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">Description :</span>
-            <input type="text" class="form-control shadow-none" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"  id="des" placeholder="Description....">
-          </div>
+            <span class="input-group-text" id="inputGroup-sizing-default">Description:</span>
+            <textarea class="form-control shadow-none" id="des" placeholder="Description..." required></textarea>
+            <div class="invalid-feedback">Please enter a description.</div>
+        </div>
+        
           <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default">Date :</span>
-            <input type="date" class="form-control shadow-none" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="date_" placeholder="date">
+            <input type="date" class="form-control shadow-none" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="date_" placeholder="date" required>
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default">Time :</span>
-            <input type="time" class="form-control shadow-none" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="time_" placeholder="time....">
+            <input type="time" class="form-control shadow-none" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="time_" placeholder="time...." required>
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text" id="inputGroup-sizing-default">Id :</span>
-            <input type="text" class="form-control shadow-none" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="id_" placeholder="Id....">
+            <input type="text" class="form-control shadow-none" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="id_" placeholder="Id...." required>
           </div>
           
           <div>

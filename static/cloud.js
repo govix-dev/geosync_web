@@ -41,3 +41,13 @@ $(document).ready(function () {
 
 
 
+function copy_ass() {
+    var copyText = document.getElementById("ass");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); // For mobile devices
+    navigator.clipboard.writeText(copyText.value).then(() => {
+        alert("Copied: " + copyText.value);
+    }).catch(err => {
+        console.error("Failed to copy: ", err);
+    });
+}

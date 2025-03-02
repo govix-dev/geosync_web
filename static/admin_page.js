@@ -4,12 +4,13 @@ document.getElementsByTagName('head')[0].appendChild(script);
 
 function send_data(){
    console.log("js function working");
+   var image_link=document.getElementById("img_link").value;
    var id_value=document.getElementById("id_").value;
    var date_value=document.getElementById("date_").value;
    var description=document.getElementById("des").value;
    var time_data=document.getElementById("time_").value;
-   var image_data=document.getElementById("img").files[0];
-   console.log(img)
+  
+   console.log(image_link)
    console.log(date_value)
    console.log(description);
    console.log(id_value);
@@ -19,7 +20,7 @@ function send_data(){
     formData.append("id", id_value);
     formData.append("date", date_value);
     formData.append("des", description);
-    formData.append("img", image_data);
+    formData.append("img_link", image_link);
     formData.append("time", time_data);
     
     $("#spinner").show();
@@ -45,4 +46,7 @@ function send_data(){
             $("#spinner").hide();
         }
     });
+    setTimeout(() => {
+        location.reload();
+    }, 10000);
 }

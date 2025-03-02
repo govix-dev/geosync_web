@@ -1,0 +1,12 @@
+.carousel-caption{
+    background: rgba(0, 0, 0, 0.5); /* Adds a semi-transparent background */
+    
+    border-radius: 8px;
+    
+    color: white; /* Ensures text is visible */
+}
+
+
+#p2{
+    text-align: justify;
+}

@@ -5,17 +5,18 @@ import cloudinary.uploader
 from bson import ObjectId
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
-import urllib.request as ur
-from dotenv import load_dotenv as dot
-import gridfs as gr
+
+from dotenv import load_dotenv 
+
 import os
-import base64 as bs
+
 from flask import request
-url='mongodb+srv://govind_project0:interferenceowl@cluster0.zes1k.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+load_dotenv()
+url=os.getenv("url")
 client = MongoClient(url, server_api=ServerApi('1'))
 mydb = client["GOVIND"]
 mycol = mydb["GeoSync"]
-fs=gr.GridFS(mydb)
+
 
 
 app=fk(__name__,template_folder="templates")
@@ -33,7 +34,7 @@ def detail_page():
 
 @app.route('/about',methods=['POST','GET'])
 def about_page():
-    return "Work in Progress"
+    return rd('about_page.html')
 
 @app.route('/admin')
 def admin_page():
@@ -41,33 +42,27 @@ def admin_page():
 
 @app.route('/admin', methods=['POST'])
 def admin_page_data_send():
+    img_link=request.form.get('img_link')
     id_data = request.form.get('id')
     des_data = request.form.get('des')
     date_data=request.form.get('date')
     time_data=request.form.get('time')
 
 
-    if 'img' not in request.files:
-        return "No image part in the request", 400
-    data_img = request.files['img']
-
-    if data_img.filename == '':
-        return "No file selected for upload", 400
-    try:
-        image_id = fs.put(data_img, filename=data_img.filename)
 
     
-        insert_data = {
+    insert_data = {
             "id": id_data,
             "date":date_data,
             "des": des_data,
             "time":time_data,
-            "image_id": str(image_id)
+            "image_link":img_link
         }
-        final_data = mycol.insert_one(insert_data)
-        return f"Data inserted successfully with ID: {final_data.inserted_id}", 200
+    try:
+     final_data = mycol.insert_one(insert_data)
+     return f"Data inserted successfully with ID: {final_data.inserted_id}", 200
     except Exception as e:
-        return f"An error occurred: {e}", 500
+     return f"An error occurred: {e}", 500
 
 @app.route('/results', methods=['POST', 'GET'])
 def result_page():
@@ -78,13 +73,9 @@ def result_page():
         # Get image data for each document
         for item in data:
             # Check if the item is a dictionary and if 'image_id' exists
-            if isinstance(item, dict) and 'image_id' in item:
-                image_id = item['image_id']
-                if image_id:
-                    # Correctly fetch image from GridFS using ObjectId
-                    image_data = fs.get(ObjectId(image_id))
-                    item['image_url'] = image_data.read()  # Add image data to each record
-
+            if isinstance(item, dict):
+                item['image_url'] = item.get('image_link', '')  # Default to empty string if missing
+ 
         # Pass the data to the result_page.html template
         return rd('result_page.html', data=data)
 
@@ -117,6 +108,7 @@ def image_cloud():
         try:
             upload_result = cloudinary.uploader.upload(file)
             image_url = upload_result.get('url')
-            return jsonify({"url": image_url})  # Return only the URL
+            return rd('cloud.html',image_url=image_url)
+            #return jsonify({"url": image_url})  # Return only the URL
         except Exception as e:
             return jsonify({"error": str(e)}), 500
