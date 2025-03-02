@@ -1,3 +1,6 @@
+
+
+
 .carousel-caption{
     background: rgba(0, 0, 0, 0.5); /* Adds a semi-transparent background */
     
@@ -10,3 +13,226 @@
 #p2{
     text-align: justify;
 }
+
+
+/* From Uiverse.io by Yaya12085 */ 
+.card-alt {
+    max-width: 350px;
+    background-color: rgb(7 16 45);
+    background: linear-gradient(to top right, rgb(7 16 45), rgb(58 60 84));
+    background: -webkit-linear-gradient(to top right, rgb(7 16 45), rgb(58 60 84));
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid rgb(84 90 106);
+  }
+  
+  .small-text-alt, .title-alt, .desc-alt {
+    font-weight: 600;
+  }
+  
+  .title-alt, .desc-alt {
+    margin: 8px 0;
+  }
+  
+  .small-text-alt {
+    color: #488aec;
+    font-size: 14px;
+  }
+  
+  .title-alt {
+    color: #fff;
+    font-size: 26px;
+    line-height: 26px;
+  }
+  
+  .desc-alt {
+    color: rgb(151 153 167);
+    font-size: 13px;
+  }
+  
+  .buttons-alt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .button-alt {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    padding: 6px;
+    text-decoration: none;
+  }
+  
+  .button-alt:first-child {
+    box-shadow: 0 4px 6px -1px #488aec31, 0 2px 4px -1px #488aec17;
+    background-color: #488aec;
+  }
+  
+  .button-alt:last-child {
+    box-shadow: 0 4px 6px -1px #0b162531, 0 2px 4px -1px #0e192b17;
+    background-color: #fff;
+  }
+  
+  .icon-alt {
+    height: 25px;
+    width: 25px;
+  }
+  
+  .icon-alt svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .icon-alt svg:last-child {
+    fill: #000;
+  }
+  
+  .button-text-alt {
+    display: flex;
+    flex-direction: column;
+    margin-left: 8px;
+  }
+  
+  .button-text-alt span:first-child {
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .google-alt span:first-child {
+    color: rgb(219 206 253);
+  }
+  
+  .apple-alt span:first-child {
+    color: rgb(81 87 108);
+  }
+  
+  .google-alt span:last-child {
+    color: #fff;
+    font-weight: 800;
+  }
+  
+  .apple-alt span:last-child {
+    color: #000;
+    font-weight: 800;
+  }
+  
+
+  /* From Uiverse.io by Yaya12085 */
+  .cookie-alert-box {
+    margin-left: auto; /* Pushes it to the right */
+    max-width: 320px;
+    padding: 1rem;
+    background-color: #dbded6;
+    border-radius: 10px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    z-index: 9999; /* Keeps it on top */
+    text-align: left;
+  }
+  
+
+  @media (max-width: 768px) {
+    .last {
+        flex-direction: column; /* Stack elements vertically */
+        align-items: center; /* Center align items */
+    }
+
+    .cookie-alert-box {
+        margin-left: 0; /* Remove auto margin */
+        margin-top: 15px; /* Add spacing below the panel */
+        width: 100%; /* Full width on small screens */
+        max-width: 100%; /* Adjust width for better layout */
+        text-align: center; /* Center text on mobile */
+    }
+}
+
+
+
+  
+  .cookie-title {
+    font-weight: 600;
+    color: rgb(31 41 55);
+  }
+  
+  .cookie-message {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: rgb(75 85 99);
+  }
+  
+  .cookie-message a {
+    --tw-text-opacity: 1;
+    color: rgb(59 130 246);
+  }
+  
+  .cookie-message a:hover {
+    -webkit-text-decoration-line: underline;
+    text-decoration-line: underline;
+  }
+  
+  .cookie-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    -moz-column-gap: 1rem;
+    column-gap: 1rem;
+    flex-shrink: 0;
+  }
+  
+  .cookie-settings {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: rgb(31 41 55);
+    -webkit-text-decoration-line: underline;
+    text-decoration-line: underline;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    background-color: transparent;
+  }
+  
+  .cookie-settings:hover {
+    color: rgb(156 163 175);
+  }
+  
+  .cookie-settings:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  
+  .cookie-approve {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    background-color: rgb(17 24 39);
+    font-weight: 500;
+    border-radius: 0.5rem;
+    color: #fff;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+    border: none;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .cookie-approve:hover {
+    background-color: rgb(55 65 81);
+  }
+  
+  .cookie-approve:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  
+  .last{
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distributes elements across the row */
+    flex-wrap: wrap;
+  }
