@@ -22,6 +22,8 @@ function send_data(){
     formData.append("img", image_data);
     formData.append("time", time_data);
     
+    $("#spinner").show();
+    $("#message").html("");
 
     // Send data using AJAX
     $.ajax({
@@ -32,9 +34,15 @@ function send_data(){
         contentType: false, // Prevent jQuery from setting the Content-Type header
         success: function(response) {
             console.log("Success:", response);
+            $("#message").html('<div class="alert alert-success">Data uploaded successfully!</div>');
         },
         error: function(error) {
             console.log("Error:", error);
+            $("#message").html('<div class="alert alert-danger">Error uploading data.</div>');
+        },
+        complete: function() {
+            // Hide loading spinner
+            $("#spinner").hide();
         }
     });
 }

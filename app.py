@@ -1,4 +1,8 @@
-from flask import Flask as fk,render_template as rd,redirect as re,url_for
+from flask import Flask as fk,render_template as rd,redirect as re,url_for,jsonify
+
+import cloudinary_config
+import cloudinary.uploader
+from bson import ObjectId
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import urllib.request as ur
@@ -26,10 +30,6 @@ def detail_page():
     return "Work in Progress"
 
 
-@app.route('/results',methods=['POST','GET'])
-def result_page():
-    return rd('result_page.html')
-
 
 @app.route('/about',methods=['POST','GET'])
 def about_page():
@@ -46,19 +46,17 @@ def admin_page_data_send():
     date_data=request.form.get('date')
     time_data=request.form.get('time')
 
-    # Handle file upload
+
     if 'img' not in request.files:
         return "No image part in the request", 400
     data_img = request.files['img']
 
     if data_img.filename == '':
         return "No file selected for upload", 400
-
-    # Save file in MongoDB or process it as needed
     try:
         image_id = fs.put(data_img, filename=data_img.filename)
 
-        # Insert data into the database
+    
         insert_data = {
             "id": id_data,
             "date":date_data,
@@ -71,3 +69,54 @@ def admin_page_data_send():
     except Exception as e:
         return f"An error occurred: {e}", 500
 
+@app.route('/results', methods=['POST', 'GET'])
+def result_page():
+    try:
+        # Fetch all documents from MongoDB
+        data = list(mycol.find())
+
+        # Get image data for each document
+        for item in data:
+            # Check if the item is a dictionary and if 'image_id' exists
+            if isinstance(item, dict) and 'image_id' in item:
+                image_id = item['image_id']
+                if image_id:
+                    # Correctly fetch image from GridFS using ObjectId
+                    image_data = fs.get(ObjectId(image_id))
+                    item['image_url'] = image_data.read()  # Add image data to each record
+
+        # Pass the data to the result_page.html template
+        return rd('result_page.html', data=data)
+
+    except Exception as e:
+        return f"An error occurred while fetching the data: {e}", 500
+
+# Route to serve images (example)
+@app.route('/image/<image_id>')
+def get_image(image_id):
+    try:
+        image_data = fs.get(ObjectId(image_id))
+        return image_data.read(), 200  # Return image data
+    except Exception as e:
+        return f"Image not found: {e}", 404
+    
+@app.route('/cloud', methods=['POST', 'GET'])
+def image_cloud():
+    if request.method == 'GET':
+        return rd('cloud.html')  # Render the HTML page correctly
+
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            return jsonify({"error": "No file part"}), 400
+
+        file = request.files['file']
+
+        if file.filename == '':
+            return jsonify({"error": "No selected file"}), 400
+
+        try:
+            upload_result = cloudinary.uploader.upload(file)
+            image_url = upload_result.get('url')
+            return jsonify({"url": image_url})  # Return only the URL
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
