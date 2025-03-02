@@ -112,3 +112,6 @@ def image_cloud():
             #return jsonify({"url": image_url})  # Return only the URL
         except Exception as e:
             return jsonify({"error": str(e)}), 500
+
+if __name__ == "__main__":
+    app.run(debug=True)
